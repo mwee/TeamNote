@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :notes, dependent: :destroy
+
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 
@@ -14,7 +16,10 @@ class User < ActiveRecord::Base
     SecureRandom.urlsafe_base64
   end
 
-
+  def feed
+    # "Following users" feature
+    Note.where("user_id = ?", id)
+  end
 
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
