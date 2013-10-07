@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Teamnote::Application.config.secret_key_base = '9b02a72caf5d1b1e1ccfdf9fa1bae7e080cf09436d7950e82b8ed2a6cae7ecc99390359e995a129fede893afc3a5fbb5c5bf3a2efbb213f992072e7c661e9814'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+Teamnote::Application.config.secret_key_base = secure_token
