@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
   before_action :signed_in_user, only: [:create, :destroy]
-  before_action :correct_user,   only: :destroy
+  before_action :correct_user,   only: [:show, :destroy, :edit, :update]
   
   def create
     @note = current_user.notes.build(note_params)
@@ -12,6 +12,15 @@ class NotesController < ApplicationController
       render 'static_pages/home'
     end
   end
+
+  def edit
+  end
+
+  def update
+
+  end
+
+
 
   def destroy
     @note.destroy
@@ -26,6 +35,8 @@ class NotesController < ApplicationController
 
     def correct_user
       @note = current_user.notes.find_by(id: params[:id])
+      if @note.user_id != current_user.id
+        redirect_to root_url 
       redirect_to root_url if @note.nil?
     end
 end
