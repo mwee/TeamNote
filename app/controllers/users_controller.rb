@@ -57,7 +57,8 @@ class UsersController < ApplicationController
 
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      # want to check that current_user in @user's sharing array
+      redirect_to(root_url) unless current_user?(@user) or @user.sharing?(current_user)
     end
 
     def admin_user

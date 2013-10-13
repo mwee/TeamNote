@@ -17,9 +17,9 @@ class NotesController < ApplicationController
   end
 
   def update
-    @note = current_user.notes.find(params[:id])
+    @note = Note.find(params[:id])
     if @note.update_attributes(note_params)
-      redirect_to root_url
+      redirect_to @note.user
     else
       render 'edit'
     end
@@ -32,7 +32,7 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
-    redirect_to root_url
+    redirect_to @note.user
   end
 
   private
@@ -41,13 +41,10 @@ class NotesController < ApplicationController
       params.require(:note).permit(:content)
     end
 
-    def correct_user
-      @note = current_user.notes.find_by(id: params[:id])
-      if @note.user_id != current_user.id
-        flash[:notice] = "You don't have the permissions to view this note."
-        redirect_to root_url 
-      
-      end
+    def correct_user 
+      @note = Note.find_by(id: params[:id])
+      redirect_to root_url unless @note.user_id == current_user.id or @note.user.sharing?(current_user)
+
       redirect_to root_url if @note.nil?
     end
 end

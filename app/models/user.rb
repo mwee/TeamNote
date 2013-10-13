@@ -46,6 +46,8 @@ class User < ActiveRecord::Base
     relationships.find_by(shared_id: other_user.id).destroy!
   end
 
+  
+
   private
 
     def create_remember_token
