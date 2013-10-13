@@ -46,7 +46,7 @@ class NotesController < ApplicationController
       if @note.user_id != current_user.id
         flash[:notice] = "You don't have the permissions to view this note."
         redirect_to root_url 
-
+      
       end
       redirect_to root_url if @note.nil?
     end
