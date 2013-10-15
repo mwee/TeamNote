@@ -27,7 +27,7 @@ $(function() {
 
 function updateNotes () {
   var user_id = $(".notes").attr("data-id");
-
+  console.log(user_id);
   $.getScript("/notes.js?user_id=" + user_id);
   setTimeout(updateNotes, 2000);
 }
