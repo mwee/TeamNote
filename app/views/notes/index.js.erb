@@ -1,0 +1,3 @@
+alert("hi")
+$(".notes").html("<%=raw escape_javascript(render(@notes)) %>");
+$("#count").text("Notes " + "(" + <%= @notes.count %> + ")");

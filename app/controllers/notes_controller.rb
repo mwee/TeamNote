@@ -11,6 +11,12 @@ class NotesController < ApplicationController
       @feed_items = []
       render 'static_pages/home'
     end
+  end  
+
+  def index
+    @user = User.find(params[:user_id])
+    @notes = @user.notes
+    @length = @notes.count
   end
 
   def edit

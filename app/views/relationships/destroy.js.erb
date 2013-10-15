@@ -1,0 +1,2 @@
+$("#share_form").html("<%= escape_javascript(render('users/share')) %>")
+$("#sharers").html('<%= @user.sharers.count %>')

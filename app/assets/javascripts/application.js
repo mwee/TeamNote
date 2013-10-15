@@ -15,3 +15,16 @@
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
+
+$(function() {
+  if ($(".notes").length > 0) {
+    setTimeout(updateNotes, 2000);
+  }
+});
+
+function updateNotes () {
+  var user_id = $(".notes").attr("data-id");
+
+  $.getScript("/notes.js?user_id=" + user_id);
+  setTimeout(updateNotes, 2000);
+}
