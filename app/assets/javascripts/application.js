@@ -18,6 +18,9 @@
 
 $(function() {
   if ($(".notes").length > 0) {
+  	$.ajaxSetup({
+	  cache: true
+	});
     setTimeout(updateNotes, 2000);
   }
 });

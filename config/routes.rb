@@ -1,7 +1,7 @@
 Teamnote::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :notes, only: [:edit, :show, :update, :create, :destroy]
+  resources :notes, only: [:edit, :show, :update, :create, :destroy, :index]
   resources :relationships, only: [:create, :destroy]
   
   root  'static_pages#home'
